@@ -89,7 +89,7 @@ const Reports = () => {
     };
 
     return (
-      <div className="chart-container">
+      <div className="chart-container w-full">
         <h2 className="text-xl font-semibold mb-4">Monthly Expenses</h2>
         <Bar data={data} />
       </div>

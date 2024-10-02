@@ -6,6 +6,7 @@ import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
 import Reports from "../pages/Reports";
 import Home from "../pages/Home";
+import Expenses from "../pages/Expenses";
 
 
 
@@ -26,7 +27,12 @@ export const route = createBrowserRouter([
     },
     { path: "/",
       element: <Home/>,
+    }, 
+    
+    { path: "/Expenses",
+      element: <Expenses/>,
     }
+     
      
     ],
 
@@ -44,3 +50,6 @@ export const route = createBrowserRouter([
   },
 
 ]);
+
+
+export default route;

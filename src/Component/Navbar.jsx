@@ -8,7 +8,7 @@ function Navbar() {
   const navlinks = [
     { name: "Home", route: "/" },
     { name: "Reports", route: "/reports" },
-    { name: "Expenses", route: "/Expenses" },
+    { name: "About", route: "/Expenses" },
   ];
 
   const location = useLocation();
@@ -97,9 +97,9 @@ function Navbar() {
             <button
               type="button"
               onClick={mobileOpen}
-              className="focus:outline-none hover:text-primary"
+              className="focus:outline-none hover:text-primary mr-10"
             >
-              <FaBars className="h-[30px] w-[30px]" />
+              <FaBars className="h-[30px] w-[30px] " />
             </button>
           </div>
 
