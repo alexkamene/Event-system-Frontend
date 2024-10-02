@@ -27,7 +27,7 @@ const HomePage = () => {
                     <div className="mt-4">
 
 
-                        <Link to="/register" className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">Get Started</Link>
+                        <Link to="/Register" className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">Get Started</Link>
         </div>
                 </section>
 
