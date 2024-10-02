@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
-import authService from "../Auth/authService"; // Ensure the correct import
+import authService from "../Auth/authService"; 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
@@ -15,7 +14,7 @@ export default function Register() {
     setLoading(true);
     e.preventDefault();
     try {
-      const response = await authService.register(username, password);
+      await authService.register(username, password);
       toast.success("Registered successfully");
       setUsername("");
       setPassword("");
@@ -32,27 +31,28 @@ export default function Register() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 3 }}
-      className="md:flex block justify-center items-center h-screen bg-gray-500"
+      transition={{ duration: 1.5 }}
+      className="flex flex-col md:flex-row justify-center items-center h-screen bg-gradient-to-r from-gray-100 to-gray-300"
     >
-      <div className="flex w-full max-w-6xl bg-white rounded-lg shadow-lg overflow-hidden">
-        {/* Left side (Form) */}
-        <div className="w-1/2 p-8">
-          <h2 className="text-2xl font-bold text-secondary mb-1 text-center">
-            Expense Tracker
+      <div className="flex flex-col md:flex-row w-full max-w-5xl bg-white rounded-lg shadow-xl overflow-hidden">
+        
+        {/* Left Side - Form */}
+        <div className="w-full md:w-1/2 p-8 bg-gray-50">
+          <h2 className="text-3xl font-bold text-blue-500 mb-6 text-center">
+            Welcome to Expense Tracker
           </h2>
-          <h2 className="text-2xl font-semibold mb-4 text-center">
-            Welcome, Register
-          </h2>
+          <h3 className="text-lg text-gray-700 mb-6 text-center">
+            Create your account below
+          </h3>
           <form onSubmit={handleSubmit}>
-            <div className="mb-4">
+            <div className="mb-6">
               <input
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Username"
                 required
-                className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
+                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-400"
               />
             </div>
             <div className="mb-6">
@@ -62,12 +62,15 @@ export default function Register() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
                 required
-                className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
+                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-400"
               />
             </div>
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white p-3 rounded mt-1 hover:bg-blue-600 transition duration-200"
+              className={`w-full py-3 text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-300 ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={loading}
             >
               {loading ? (
                 <span className="loading loading-spinner loading-sm"></span>
@@ -77,43 +80,36 @@ export default function Register() {
             </button>
           </form>
 
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
+          <ToastContainer position="top-right" autoClose={5000} />
 
-          <div className="py-6 text-center font-bold">
-            <h4>Or</h4>
+          <div className="py-6 text-center">
+            <span className="text-gray-600">Or</span>
           </div>
-          <div className="text-black text-center">
+          <div className="text-center">
             <p>
-              Have an account?{" "}
-              <Link to="/login" className="text-red-500">
+              Already have an account?{" "}
+              <Link to="/login" className="text-blue-500 hover:underline">
                 Login
               </Link>
             </p>
           </div>
         </div>
 
-        {/* Right side (Image) */}
+        {/* Right Side - Image */}
         <div
-          className="w-1/2 bg-cover bg-center "
+          className="w-full md:w-1/2 bg-cover bg-center flex items-center justify-center"
           style={{
             backgroundImage: `url('https://images.pexels.com/photos/5466785/pexels-photo-5466785.jpeg?auto=compress&cs=tinysrgb&w=600')`,
           }}
         >
-          <h1 className="text-center text-xl font-bold">Expense tracker</h1>
-
-          <p className="text-secondary font-thin text-xl text-center items-center justify-center mt-20">
-            Welcome to Register page
-          </p>
+          <div className="text-white text-center">
+            <h1 className="text-3xl font-bold">
+              Track Your Expenses Seamlessly
+            </h1>
+            <p className="mt-4 text-lg">
+              Join today and take control of your financial life!
+            </p>
+          </div>
         </div>
       </div>
     </motion.div>

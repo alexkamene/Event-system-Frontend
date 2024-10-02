@@ -8,7 +8,7 @@ function Navbar() {
   const navlinks = [
     { name: "Home", route: "/" },
     { name: "Reports", route: "/reports" },
-    { name: "Expenses", route: "/" },
+    { name: "Expenses", route: "/Expenses" },
   ];
 
   const location = useLocation();

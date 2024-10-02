@@ -22,7 +22,7 @@ const Dashboard = () => {
             }
 
             try {
-                const response = await axios.get('http://localhost:3000/expenses', {
+                const response = await axios.get('https://expense-trackerserver.onrender.com/expenses', {
                     headers: {
                         Authorization: `Bearer ${token}`, 
                     },
@@ -61,7 +61,7 @@ const Dashboard = () => {
     
 
         try {
-           const resp= await axios.delete(`http://localhost:3000/delete-expense/${id}`, {
+           const resp= await axios.delete(`https://expense-trackerserver.onrender.com/delete-expense/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -85,7 +85,7 @@ const Dashboard = () => {
             transition={{ duration: 1 }}
             className="dashboard p-6 bg-gray-50 min-h-screen mt-20"
         >
-            <h1 className="text-3xl font-bold mb-6">Expense Tracker Dashboard</h1>
+            <h1 className="text-3xl font-bold mb-6 btn">Dashboard</h1>
 
             {/* Loading spinner */}
             {loading ? (
@@ -97,22 +97,47 @@ const Dashboard = () => {
                     {/* Show charts and stats only when expenses are available */}
                     {expenses.length > 0 ? (
                         <>
-                            {/* Statistics section for total, highest, and lowest expenses */}
-                            <div className="flex flex-col md:flex-row justify-between items-center text-green-600
-                            bg-white shadow-md rounded-lg p-2 mb-6 mt-14">
-                                <div className="mb-4 md:mb-0 ">
-                                    <h2 className="md:text-xl text-sm font-semibold">Total Expenses:</h2>
-                                    <p className=" text-xl text-black">${total.toFixed(2)}</p>
-                                </div>
-                                <div className="mb-4 md:mb-0">
-                                    <h2 className="md:text-xl text-sm font-semibold">Highest Expense:</h2>
-                                    <p className="text-xl text-black">${highest.toFixed(2)}</p>
-                                </div>
-                                <div>
-                                    <h2 className="md:text-2xl text-smfont-semibold">Lowest Expense:</h2>
-                                    <p className="text-xl text-black">${lowest.toFixed(2)}</p>
-                                </div>
-                            </div>
+                       {/* Show charts and stats only when expenses are available */}
+{expenses.length > 0 ? (
+    <>
+        {/* Statistics section for total, highest, and lowest expenses */}
+<div className="flex flex-col md:flex-row md:justify-between justify-normal items-center bg-slate-300
+ text-white rounded-lg p-2 mb-6 mt-14 transition duration-300 ease-in-out transform hover:scale-105">
+    
+    {/* Total Expenses Box */}
+    <div className="bg-white shadow-lg text-black shadow-md bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 rounded-lg p-4 m-4 w-full md:w-auto text-center hover:shadow-xl">
+        <div className="flex items-center justify-center space-x-2">
+            <h2 className="md:text-lg text-sm font-semibold">Total Expenses:</h2>
+            <p className="text-2xl font-bold">${total.toFixed(2)}</p>
+            <span className="text-green-500 text-lg font-bold">↑</span>
+        </div>
+        <p className="text-xs text-gray-700 mt-1">Since last month</p> {/* Subscript content */}
+    </div>
+
+    {/* Highest Expense Box */}
+    <div className="bg-white text-black bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 shadow-md rounded-lg p-4 m-4 w-full md:w-auto text-center hover:shadow-xl">
+        <div className="flex items-center justify-center space-x-2">
+            <h2 className="md:text-lg text-sm font-semibold">Highest Expense:</h2>
+            <p className="text-2xl font-bold">${highest.toFixed(2)}</p>
+            <span className="text-red-500 text-lg font-bold">↑</span> {/* Up arrow */}
+        </div>
+        <p className="text-xs text-gray-700 mt-1">Significant increase</p> {/* Subscript content */}
+    </div>
+
+    {/* Lowest Expense Box */}
+    <div className="bg-white text-black bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 shadow-md rounded-lg p-4 m-4 w-full md:w-auto text-center hover:shadow-xl">
+        <div className="flex items-center justify-center space-x-2">
+            <h2 className="md:text-lg text-sm font-semibold">Lowest Expense:</h2>
+            <p className="text-2xl font-bold">${lowest.toFixed(2)}</p>
+            <span className="text-green-500 text-lg font-bold">↑</span> {/* Up arrow */}
+        </div>
+        <p className="text-xs text-gray-700 mt-1">Stable spending</p> {/* Subscript content */}
+    </div>
+</div>
+
+    </>
+) : null}
+
 
                             {/* Section to add new expenses */}
                             <AddExpense onAddExpense={handleAddExpense} />

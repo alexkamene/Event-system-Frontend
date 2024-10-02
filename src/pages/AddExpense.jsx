@@ -17,7 +17,7 @@ const AddExpense = ({ onAddExpense }) => {
         const token = localStorage.getItem('token');
 
         try {
-            const response = await axios.post('http://localhost:3000/add-expense', {
+            const response = await axios.post('https://expense-trackerserver.onrender.com/add-expense', {
                 category: expenseName,
                 description,
                 amount: parseFloat(amount),

@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 const navigaate=useNavigate
-const API_URL = 'http://localhost:3000/';
+const API_URL = 'https://expense-trackerserver.onrender.com/';
 
 const register = async (username, password) => {
     const response = await axios.post(API_URL + 'Register', { username, password });
