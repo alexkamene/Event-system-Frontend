@@ -1,7 +1,10 @@
 import React from 'react';
  // Update the path to your image
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
+
+
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col">
             {/* Header Section */}
@@ -22,8 +25,10 @@ const HomePage = () => {
                         Start tracking your expenses today and take control of your financial future!
                     </p>
                     <div className="mt-4">
-                        <a href="/register" className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">Get Started</a>
-                    </div>
+
+
+                        <Link to="/register" className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">Get Started</Link>
+        </div>
                 </section>
 
                 {/* Image Section */}
