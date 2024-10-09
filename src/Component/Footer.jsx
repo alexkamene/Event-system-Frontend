@@ -32,27 +32,27 @@ function Footer() {
               </h3>
               <ul className="space-y-1 text-sm">
                 <li>
-                  <a href="/dashboard" className="hover:text-primary">
+                  <a href="" className="hover:text-primary">
                     Dashboard
                   </a>
                 </li>
                 <li>
-                  <a href="/add-expense" className="hover:text-primary">
+                  <a href="" className="hover:text-primary">
                     Add Expense
                   </a>
                 </li>
                 <li>
-                  <a href="/reports" className="hover:text-primary">
+                  <a href="" className="hover:text-primary">
                     Reports
                   </a>
                 </li>
                 <li>
-                  <a href="/about" className="hover:text-primary">
+                  <a href="" className="hover:text-primary">
                     About
                   </a>
                 </li>
                 <li>
-                  <a href="/contact" className="hover:text-primary">
+                  <a href="" className="hover:text-primary">
                     Contact Us
                   </a>
                 </li>

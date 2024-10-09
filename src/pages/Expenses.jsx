@@ -3,8 +3,8 @@ import React from 'react'
 export default function Expenses() {
   return (
     <div >
-  <h2 className='text-secondary text-center  mt-73'> 
-     still under development</h2>
+  <h1 className='text-secondary text-center  '> 
+     still under development</h1>
     </div>
   )
 }

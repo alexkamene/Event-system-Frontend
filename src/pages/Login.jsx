@@ -101,12 +101,12 @@ export default function Login() {
 
         {/* Right Side - Image */}
         <div
-          className="w-full md:w-1/2 bg-cover bg-center flex items-center justify-center"
+          className="w-full md:w-1/2 bg-cover bg-center flex  justify-center"
           style={{
-            backgroundImage: `url('https://images.pexels.com/photos/5466785/pexels-photo-5466785.jpeg?auto=compress&cs=tinysrgb&w=600')`,
+            backgroundImage: `url('1.webp')`,
           }}
         >
-          <h1 className="text-2xl text-white font-bold">
+          <h1 className="text-2xl text-white font-bold mt-19">
             Track your expenses efficiently!
           </h1>
         </div>

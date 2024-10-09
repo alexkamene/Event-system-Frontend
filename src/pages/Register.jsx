@@ -99,14 +99,12 @@ export default function Register() {
         <div
           className="w-full md:w-1/2 bg-cover bg-center flex items-center justify-center"
           style={{
-            backgroundImage: `url('https://images.pexels.com/photos/5466785/pexels-photo-5466785.jpeg?auto=compress&cs=tinysrgb&w=600')`,
+            backgroundImage: `url('2.webp')`,
           }}
         >
           <div className="text-white text-center">
-            <h1 className="text-3xl font-bold">
-              Track Your Expenses Seamlessly
-            </h1>
-            <p className="mt-4 text-lg">
+           
+            <p className="mt-20 text-lg">
               Join today and take control of your financial life!
             </p>
           </div>

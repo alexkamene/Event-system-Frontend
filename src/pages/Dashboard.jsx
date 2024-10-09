@@ -7,10 +7,26 @@ import { motion } from "framer-motion";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 const Dashboard = () => {
     const [expenses, setExpenses] = useState([]);
-    const [loading, setLoading] = useState(true); // Loading state
+    const [loading, setLoading] = useState(true);// Loading state
+    const [userName, setUserName] = useState(null); 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate(); 
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem("username");
+        if (storedUser) {
+          setUserName(storedUser);
+          setIsLoggedIn(true); // User is logged in
+        } else {
+          setIsLoggedIn(false); // No user found
+        }
+      }, []);
+    
+
+
 
     useEffect(() => {
         const fetchExpenses = async () => {
@@ -85,7 +101,21 @@ const Dashboard = () => {
             transition={{ duration: 1 }}
             className="dashboard p-6 bg-gray-50 min-h-screen mt-20"
         >
-            <h1 className="text-3xl font-bold mb-6 btn">Dashboard</h1>
+          <div className='md:flex flex-row'>
+         <div> <h1 className="text-3xl font-bold mb-6 btn">Dashboard</h1></div>
+         <div>
+         <h4>
+                  <span className="text-black font-semibold hidden md:block mt-[9px] ml-6">
+                     🖐Welcome,{" "}
+                    <span className="font-extrabold text-secondary">
+                      {userName}
+                    </span>
+                  </span>
+                </h4>
+         </div>
+          </div>
+         
+          
 
             {/* Loading spinner */}
             {loading ? (
@@ -155,6 +185,8 @@ const Dashboard = () => {
                                             <th className="text-left p-4">Amount</th>
                                             <th className="text-left p-4">Description</th>
                                             <th className="text-left p-4">Date</th>
+                                            <th className="text-left p-4">del </th>
+
                                         </tr>
                                     </thead>
                                     <tbody>

@@ -7,6 +7,7 @@ import Dashboard from "../pages/Dashboard";
 import Reports from "../pages/Reports";
 import Home from "../pages/Home";
 import Expenses from "../pages/Expenses";
+import AddExpense from "../pages/AddExpense";
 
 
 
@@ -31,7 +32,11 @@ export const route = createBrowserRouter([
     
     { path: "/Expenses",
       element: <Expenses/>,
+    },
+    { path: "/Add-Expenses",
+      element: <AddExpense/>,
     }
+     
      
      
     ],
