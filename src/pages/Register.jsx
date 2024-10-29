@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import logo from "../Pages/Images/1.webp"; // Adjust the path as necessary
 
-export default function Register() {
+const Register=() =>{
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -145,3 +145,4 @@ export default function Register() {
     </motion.div>
   );
 }
+export default Register;

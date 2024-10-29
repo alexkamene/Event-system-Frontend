@@ -3,7 +3,7 @@ import Main from "../layoutes/Main";
 
 
 
-import Register from "../Pages/Register.jsx";
+
 import Login from "../Pages/Login.jsx";
 import EventRegistration from "../Pages/Dashboards/EventRegistration";
 import RegisteredEvents from "../Pages/Dashboards/RegisterdEvents.jsx";
@@ -18,6 +18,7 @@ import About from "../Pages/About.jsx";
 import UserDashboard from "../Pages/Dashboards/UserDashboard.jsx";
 import AdminDashboard from "../Pages/Dashboards/AdminDashboard.jsx";
 import OrganizerDashboard from "../Pages/Dashboards/OrganizerDashboard.jsx";
+import Register from "../Pages/Register.jsx";
 
 
 
