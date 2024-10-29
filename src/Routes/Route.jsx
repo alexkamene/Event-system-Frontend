@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layoutes/Main";
-import UserDashboard from "../Pages/Dashboards/UserDashboard.jsx";
+
 import OrganizerDashboard from "../Pages/Dashboards/OrganizerDashboard.jsx";
+import UserDashboard from "../Pages/Dashboards/UserDashboard.jsx";
 import AdminDashboard from "../Pages/Dashboards/AdminDashboard.jsx";
 import Register from "../Pages/Register.jsx";
 import Login from "../Pages/Login.jsx";
@@ -65,7 +66,7 @@ export const route = createBrowserRouter([
     
 },
     {
-        path: 'dashboard/admin',
+        path: '/dashboard/admin',
         element: <AdminDashboard />,
     },
     {
