@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import AuthContext from "../context/Authcontext";
 import logo from "../Pages/Images/1.webp";
 
-export default function Login() {
+const Login=()=> {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -145,3 +145,4 @@ export default function Login() {
     </motion.div>
   );
 }
+export default Login;
