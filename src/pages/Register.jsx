@@ -1,27 +1,45 @@
 import React, { useState } from "react";
-import authService from "../Auth/authService"; 
+import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import logo from "../Pages/Images/1.webp"; // Adjust the path as necessary
 
 export default function Register() {
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [backgroundInfo, setBackgroundInfo] = useState("");
   const [loading, setLoading] = useState(false);
+  const history = useNavigate();
 
   const handleSubmit = async (e) => {
-    setLoading(true);
     e.preventDefault();
+    setLoading(true);
+
+    if (!name || !email || !password || !backgroundInfo) {
+      toast.error("All fields are required");
+      setLoading(false);
+      return;
+    }
+
     try {
-      await authService.register(username, password);
+      const response = await axios.post("https://event-management-system-backend-dtrl.onrender.com/register", {
+        name,
+        email,
+        password,
+        backgroundInfo,
+      });
+
       toast.success("Registered successfully");
-      setUsername("");
+      setName("");
+      setEmail("");
       setPassword("");
+      setBackgroundInfo("");
+      history.push("/login");
     } catch (error) {
-      if (error.response && error.response.status === 400) {
-        toast.error(error.response.data);
-      }
+      toast.error(error.response?.data || "Registration failed");
     } finally {
       setLoading(false);
     }
@@ -31,46 +49,77 @@ export default function Register() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 1.5 }}
-      className="flex flex-col md:flex-row justify-center items-center h-screen bg-gradient-to-r from-gray-100 to-gray-300"
+      transition={{ duration: 3 }}
+      className="flex h-screen"
+      style={{
+        backgroundImage: `url('https://www.elementalproduction.com/wp-content/uploads/2021/05/corporate-events.jpg')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
     >
-      <div className="flex flex-col md:flex-row w-full max-w-5xl bg-white rounded-lg shadow-xl overflow-hidden">
-        
-        {/* Left Side - Form */}
-        <div className="w-full md:w-1/2 p-8 bg-gray-50">
-          <h2 className="text-3xl font-bold text-blue-500 mb-6 text-center">
-            Welcome to Expense Tracker
+      {/* Event Description Side */}
+      <div className="hidden md:flex flex-col justify-center items-start w-1/2 p-12 text-[#56ff00] bg-slate-600 bg-opacity-50">
+        <h2 className="text-4xl font-bold mb-4">Join Exciting Events!</h2>
+        <p className="text-lg mb-4">
+          Experience unforgettable moments and connect with amazing people.
+          Our events are designed to inspire and entertain. Don't miss out!
+        </p>
+        <p className="text-lg">
+          Whether you are looking for networking opportunities or just want to have fun, we have something for everyone.
+        </p>
+      </div>
+
+      {/* Registration Form Side */}
+      <div className="flex justify-center items-center w-full md:w-1/2 p-6">
+        <div className="w-full max-w-sm bg-white rounded-lg shadow-lg overflow-hidden p-8">
+          <img src={logo} className="w-20 h-20 mx-auto rounded-full mb-4" alt="Event Management" />
+          <h2 className="text-2xl font-bold mb-1 text-center text-secondary">
+            Event Management
           </h2>
-          <h3 className="text-lg text-gray-700 mb-6 text-center">
-            Create your account below
-          </h3>
+          <h3 className="text-xl font-semibold mb-4 text-center">Register</h3>
           <form onSubmit={handleSubmit}>
-            <div className="mb-6">
+            <div className="mb-4">
               <input
                 type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Full Name"
                 required
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-400"
+                className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
               />
             </div>
-            <div className="mb-6">
+            <div className="mb-4">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+                required
+                className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
+              />
+            </div>
+            <div className="mb-4">
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
                 required
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-400"
+                className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
               />
+            </div>
+            <div className="mb-4">
+              <textarea
+                value={backgroundInfo}
+                onChange={(e) => setBackgroundInfo(e.target.value)}
+                placeholder="Background Information"
+                required
+                className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
+              ></textarea>
             </div>
             <button
               type="submit"
-              className={`w-full py-3 text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-300 ${
-                loading ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-              disabled={loading}
+              className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-600 transition duration-200"
             >
               {loading ? (
                 <span className="loading loading-spinner loading-sm"></span>
@@ -79,33 +128,16 @@ export default function Register() {
               )}
             </button>
           </form>
-
           <ToastContainer position="top-right" autoClose={5000} />
-
-          <div className="py-6 text-center">
-            <span className="text-gray-600">Or</span>
+          <div className="py-6 text-center font-bold">
+            <h4>Or</h4>
           </div>
-          <div className="text-center">
+          <div className="text-black text-center">
             <p>
               Already have an account?{" "}
-              <Link to="/login" className="text-blue-500 hover:underline">
+              <Link to="/login" className="text-red-500">
                 Login
               </Link>
-            </p>
-          </div>
-        </div>
-
-        {/* Right Side - Image */}
-        <div
-          className="w-full md:w-1/2 bg-cover bg-center flex items-center justify-center"
-          style={{
-            backgroundImage: `url('2.webp')`,
-          }}
-        >
-          <div className="text-white text-center">
-           
-            <p className="mt-20 text-lg">
-              Join today and take control of your financial life!
             </p>
           </div>
         </div>

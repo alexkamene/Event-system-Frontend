@@ -1,223 +1,229 @@
-import React, { useEffect, useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { FaBars } from "react-icons/fa";
-import { motion } from "framer-motion";
-import authService from "../Auth/authService";
+import React, { useState, useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { AiOutlineMessage, AiOutlineBell, AiOutlineSearch, AiOutlineHome, AiOutlineMenu } from 'react-icons/ai';
+import CountryFlag from 'react-country-flag';
+import { MdOutlineRoundaboutLeft } from 'react-icons/md';
+import AuthContext from '../context/Authcontext.jsx'; // Adjust the path as necessary
+import axios from 'axios';
 
-function Navbar() {
-  const navlinks = [
-    { name: "Home", route: "/" },
-    { name: "Reports", route: "/reports" },
-    { name: "About", route: "/Expenses" },
-  ];
+export default function Navbar() {
+    const { user, isAdmin, isOrganizer, logout } = useContext(AuthContext);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [notificationCount, setNotificationCount] = useState(0);
+    const [messageCount] = useState(3); // Example count, replace with actual data
+    const [notifications, setNotifications] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [avatar, setAvatar] = useState('');
+    const userid = localStorage.getItem('userid');
 
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [isFixed, setIsFixed] = useState(true); // Set to true for sticky
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [isHome, setIsHome] = useState(false);
-  const [navBg, setNavBg] = useState("bg-transparent");
-  const [loginOpen, setLoginOpen] = useState(false);
-  const [userName, setUserName] = useState(null); // Check for username in local storage
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Boolean for login state
-
-  const mobileOpen = () => {
-    setIsMobileOpen(!isMobileOpen);
-  };
-
-  // Check if the user is on the home or login page
-  useEffect(() => {
-    setIsHome(location.pathname === "/");
-    setLoginOpen(location.pathname === "/login");
-    setIsFixed(
-      location.pathname !== "/register" || location.pathname === "/login"
-    );
-  }, [location]);
-
-  // Adjust the navbar background based on scroll position and page
-  useEffect(() => {
-    if (scrollPosition > 100) {
-      if (isHome) {
-        setNavBg("bg-black backdrop-blur-xl bg-opacity-90");
-      } else {
-        setNavBg("bg-white");
-      }
-    } else {
-      setNavBg(
-        `${isHome || location.pathname === "/" ? "bg-transparent" : "bg-white"}`
-      );
-    }
-  }, [scrollPosition, isHome, location.pathname]);
-
-  // Track the scroll position
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPosition = window.pageYOffset;
-      setScrollPosition(currentScrollPosition);
+    const fetchAvatar = async () => {
+        try {
+            const response = await axios.get('https://event-management-system-backend-dtrl.onrender.com/profile', {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            setAvatar(response.data.profilePicture);
+        } catch (error) {
+            console.error('Failed to fetch avatar:', error);
+        }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    const fetchNotifications = async () => {
+        setLoading(true);
+        try {
+            const response = await axios.get(`https://event-management-system-backend-dtrl.onrender.com/notifications`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            });
 
-  // Check if user is logged in by checking localStorage
-  useEffect(() => {
-    const storedUser = localStorage.getItem("username");
-    if (storedUser) {
-      setUserName(storedUser);
-      setIsLoggedIn(true); // User is logged in
-    } else {
-      setIsLoggedIn(false); // No user found
-    }
-  }, []);
+            setNotifications(response.data);
+            setNotificationCount(response.data.filter(n => !n.read).length); // Count unread notifications
 
-  // Handle user logout
-  const handleLogout = () => {
-    authService.logout();
-    localStorage.removeItem("username"); // Remove username from localStorage
-    setIsLoggedIn(false); // Update login state
-    navigate("/login");
-  };
+        } catch (error) {
+            setError('Failed to fetch notifications');
+            console.error('Error fetching notifications:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-  return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 1 }}
-      className={`${navBg} fixed top-0 transition-colors bg-slate-300 duration-500 w-full z-10 ease-in-out`}
-    >
-      <div className="lg:w-[95%] sm:px-6 mx-auto">
-        <div className="flex items-center px-[15px] py-[25px] justify-between">
-          <div className="font-bold text-secondary text-2xl">
-            <h1>Expense Tracker</h1>
-          </div>
+    useEffect(() => {
+        fetchAvatar();
+        if (user) {
+            fetchNotifications();
+        }
+    }, [user]);
 
-          <div className="md:hidden flex items-center">
-            <button
-              type="button"
-              onClick={mobileOpen}
-              className="focus:outline-none hover:text-primary mr-10"
-            >
-              <FaBars className="h-[30px] w-[30px] " />
-            </button>
-          </div>
+    const handleSearch = (e) => {
+        e.preventDefault();
+        console.log('Searching for:', searchTerm);
+        // Implement search functionality here
+    };
 
-          <ul
-            className={`flex ml-auto justify-center font-bold ${
-              isMobileOpen
-                ? "flex-col absolute block top-full left-0 w-full bg-white transition-transform ease-in-out duration-300"
-                : "hidden md:flex"
-            }`}
-          >
-            {navlinks.map((link) => (
-              <li
-                key={link.name}
-                className="mx-[25px] mt-[9px] md:block hidden "
-              >
-                <NavLink
-                  to={link.route}
-                  className="text-black   hover:text-primary  font-semibold"
-                >
-                  {link.name}
-                </NavLink>
-              </li>
-            ))}
+    const handleLogout = () => {
+        logout();
+        // Redirect to home page after logout
+        window.location.href = '/login';
+    };
 
-            {!isLoggedIn ? (
-              loginOpen ? (
-                <li>
-                  <NavLink
-                    to="/login"
-                    className="text-black hover:text-primary text-semibold mt-[9px]"
-                  >
-                    Register
-                  </NavLink>
-                </li>
-              ) : (
-                <li>
-                  <NavLink
-                    to="/login"
-                    className="text-black hover:text-primary md:block hidden text-semibold mt-[9px]"
-                  >
-                    Login
-                  </NavLink>
-                </li>
-              )
-            ) : null}
+    const markAsRead = async (notificationId) => {
+        try {
+            await axios.put(`https://event-management-system-backend-dtrl.onrender.com/notifications/${notificationId}/read`, {}, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            setNotifications((prev) => prev.map(n => (n._id === notificationId ? { ...n, read: true } : n)));
+            setNotificationCount(prev => prev - 1);
+        } catch (error) {
+            console.error('Failed to mark notification as read:', error);
+        }
+    };
 
-            {isLoggedIn && (
-              <>
-                <li>
-                  <span className="text-black font-semibold hidden md:block mt-[9px] ml-6">
-                    Welcome,{" "}
-                    <span className="font-extrabold text-secondary">
-                      {userName}
-                    </span>
-                  </span>
-                </li>
-                <li>
-                  <NavLink
-                    to="/dashboard"
-                    className="text-black hover:text-primary md:block hidden mt-[9px] ml-6"
-                  >Dashboard</NavLink>
-                </li>
-                <li>
-                  <img
-                    src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z//////////////8BGxsbGxwbHiEhHiotKC0qPTgzMzg9XUJHQkdCXY1YZ1hYZ1iNfZd7c3uXfeCwnJyw4P/Zztn////////////////CABEIAPABBAMBIgACEQEDEQH/xAAaAAEAAwEBAQAAAAAAAAAAAAAAAQMEAgUG/9oACAEBAAAAANYACeuZInkATAAnuJjrnqJ46rAEwAAAAAmAAKCHdoAEwACuumB3rkAJgARlrAX6AAmACMfIB1psAEwARnpAOeNekAmACvILhNmHmfTAJgAz0N+6QceLT6XQCYAM9HqagDP4npdAJgAon1QA+f8ARAJgAqv1+bTq9BT53O7X4usAmADi/rnX5+yzBq78/wBLyNABMAFk6qPE+i56YcPuMKAEwAX298493HaqnWpp4ATABdf0KnfQrywAmACdVghIZKwCYAFuoDnpziAEwAGztXzC6WakATAAda+kJKM4ATAAJ02iM1QAJgADq+yeaqAAJgAC9BblgAEwABuVR3ZnoABMABGywDHwAEwAZstWjfpunijHgjRqtATAGPDyT1IiORf6NgJgGDEAADr1rAmAeJAAAG3eE//EABoBAQADAQEBAAAAAAAAAAAAAAABAgMFBAb/2gAKAgIQAxAAAACeIALCwIUAAACusaxN8JzAAACnqw6uXtJr7PnLYAAARPj+lrsBp5PTw7ZAABT0+P6O+dqEq2052/JAADP2YdvTEAeTfkgABXbDvRaazFb2pfl6+AAAKerLsaUpdF60tPi25YAAV2y7KyRBfl6eIAACnSz96RFsdeIAAAJz6tPWTjryZyAAACvox7ppzNOaAAACc+rT2JnHXizQAAF3semL1sTFqvO8bEAB11wAAclmH//EADgQAAIBAgMGBgADBQkAAAAAAAECAwARBBIxECEyQEFREyAwYXGBFEJSBSIjU5EzQ1BiY3KSobH/2gAIAQEAAT8A9YAkgCithcMCKsd27WgrEXANAMbWGtBWOgqxtfpe1ZWAvblgbGvE9qL3INhXiHtQbeb6EWNFvcE5bC3ag9lt/T7pJMqgdQSRpSuACCNdaSTKAOxuNKuMhB1veiylbWJPv0/xp3ZHPUGvHH6TXjj9NeOf0ivH/wAtCZDru5syoOt/immvuyj7om/lRyh9u1AggEcuzBRc08jP7Dt6MLbyvLEgAk0zFzf0lOVgTSyxto3KkA6inlJ3LuHpMemyCUn9xvo8pK1k+d3kAJNgCT7UIJz/AHZr8NP/ACzX4ef+Wa/Dz/yzQw05/J/U0cFLl3Ot6dHRrOpB2A2IPY8pPquwAkgAXJqLB9Zf+NKqqLKAB7eeSNJVyuLipoWhfKdOh2Lwr8Dk59V+NmGg8MZm4z/16WJi8WJh1G8bF4V+Byc+i1hY88tzovqSLlkdezEcpNwfdYIfw3PdqZlRSzHcKkxcrcJyCvFmG/O9RYs3Ak077ZplhHcnQU+Jmc8ZHsKE0ynjb7qDEiQ5W3NslF8W4/1OUkF0asH/AGJ/3GsVG8iKE6HSsPhggzOBm/8AKPvU+FOa8S/VRKUjRWNyBsxMEskuZRcECooUiWw16mnRXFmFxX4WUSi3CG4thF8ZL7E8oiBr300rCC0RHZzsxMrQwO667gKTFzo4YyM3cE7G6bcfO8MaBDYudaweJm8dEZyyueu2JAZcST1ktRFjbk4+AUgABt1JOx0V1ZWFwRvqP9nwI4e7NbQHYeLbNCk6ZHFQYKKBs4JZuhO0KqlrDUkn5NScR5OM7rUunlNwazmlJOvlOppjdieTBINxUbZgfNYDp5ncm4HKxNZ/n0Aytexvba5yqTy6NnW+0iXoyn5FXn7R1/G6ugoRhuJmf50oADbK9zYaDl1YqbilYMLjbYHpWUdvJJJ0XmQSpuKSUNuO4+UkAXNPKW3DcObTWg5FBlPWrjvRcDSiSb85Ctwxogg+RF6mmFiRzQBJAGtKMoAogGihrK3agnfZMv5uZJC2uQL96jjCb9SfQlVYrXYAHQHlSQBckAdzT4uJeG7U2LlbSy/FZ76nfUWIlh4W3djvFJ+0EPGhHuKXEwPpKv3uoEHQg/B2NJGvFIg+6fG4ddGLfAqTHyNujASmYkksSSeppZpE4WIpMYfzp9ikmik4W39jyMuLA3R7/emdnN2Yk+QEis1ZhV1q4q4rMKzHyx4iSPrmHY1HKkouuvUetipiSYl0HFyasyMGU2IqKQSIGHqaAnsL0SSST15TBNvdfvz/AP/EACURAAIBAgUEAwEAAAAAAAAAAAECABEwAxASIUEgMTJRE0Bhcf/aAAgBAgEBPwD67MFFTPkT3PlT3AwbsbruE/sOKxzBINREbUoNsxu53r0o5WKwYVFrENEOQQzQJoE0CFaTB5tYvgYg56sHu1pxVWg8ZpY7kxdW4MYkDaaT7i15mENif205osHYQEAZgimWGdyLTColKdSLTc23HPSBU3StMwCYBS63iZWVic3mNcqQGhvEAzRNH7Ao+z//xAAtEQACAQMCBAUDBQEAAAAAAAABAgMABBEhMBASMVEFEyBBYRQyUyJSYnGRof/aAAgBAwEBPwD0gA9TWF/dQCcpoBNMsaCpplqwvf23YommYqmM4yBX0V1+Kvobr8f/AEVJFJEcOhG7b2sk/TRe9R2ECd2NAYGODosilWGQauITBKyf5try5HNnHvioM+WuYwg9l9NzapcEEkggVNE0LlG2rNA9xGDwMgHSvNbsK81uwoyNSvmvExpE21YnF1HUje3pBxXiR/TFtW7cs8R/kKbVznvRdRoFp+U4IpQCdTXOvTl0pwudK8QbMiL2Tas0DzDPsM0xyTRBJocCDnhfoCqPtQS+TIGpXVwGXoeAOKJHG7uFkwi9Bt2UuhjP9jhj5FY+eE8oijJ9zoNwEqQQcEVBdLJhW0bjNMkI16+wqWVpWy27ajM6fBzRUGuQV4gNYzugEnAFWsBiBZvuNAkUWNSxiVCpp42jbDDaSN3OFFJaKPvOaVET7VAoEiueuf4osaIB6jNPbRt00qSB4/kd9iNBGgUbUyckjL6P/9k="
-                    alt="user"
-                    className="w-[41px] h-[41px] rounded-full ml-1 hidden md:block"
-                  />
-                </li>
-                <li
-                  onClick={handleLogout}
-                  className="text-white bg-secondary btn py-3 px-2 font-bold ml-1 hover:text-primary md:block hidden"
-                >
-                  Logout
-                </li>
-              </>
-            )}
-          </ul>
+    // Determine the background color based on user role
+    const getNavbarBackgroundColor = () => {
+        if (isAdmin) return 'bg-blue-600'; // Admin mood
+        if (isOrganizer) return 'bg-green-600'; // Organizer mood
+        return 'bg-gray-600'; // Default user mood
+    };
+
+    return (
+        <div className="drawer drawer-end">
+            <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+            <div className="drawer-content">
+                <nav className={`p-4 fixed top-0 text-black w-full z-50 ${getNavbarBackgroundColor()}`}>
+                    <div className="container mx-auto flex justify-between items-center">
+                        <h1 className="text-white font-bold text-xl">{isAdmin ? 'Admin Panel' : isOrganizer ? 'Organizer Dashboard' : user ? 'User Dashboard' : 'Lex Events'}</h1>
+
+                        <form onSubmit={handleSearch} className="hidden items-center flex-grow mt-2 md:mt-0">
+                            <input
+                                type="text"
+                                placeholder="Search..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="input input-bordered w-24 md:w-auto h-8 ml-6"
+                            />
+                            <button type="submit" className="text-white px-3 text-3xl ml-3 rounded">
+                                <AiOutlineSearch />
+                            </button>
+                        </form>
+
+                        {/* Hamburger Icon for Mobile */}
+                        <div className="md:hidden ">
+                            <label htmlFor="my-drawer-4">
+                                <AiOutlineMenu className="text-white hover:bg-gray-700 text-3xl mr-6" />
+                            </label>
+                        </div>
+
+                        <div className="hidden md:flex items-center space-x-4 mt-2">
+                            {/* Always visible links */}
+                            <Link to="/" className="text-white font-bold hover:bg-gray-700 hover:text-white p-2 rounded">
+                                <AiOutlineHome />
+                            </Link>
+                            <Link to="/about" className="text-white font-bold hover:bg-gray-700 hover:text-white p-2 rounded">
+                                About
+                            </Link>
+
+                            {/* Notifications Dropdown */}
+                            {user && (
+                                <div className="relative">
+                                    <button 
+                                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                        className="relative font-bold text-gray-300 hover:bg-white hover:text-white p-2 rounded"
+                                    >
+                                        <AiOutlineBell />
+                                        {notificationCount > 0 && (
+                                            <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full px-2">
+                                                {notificationCount}
+                                            </span>
+                                        )}
+                                    </button>
+                                    {isDropdownOpen && (
+                                        <ul className="absolute right-0 mt-2 w-48 h-48 bg-gray-700 text-gray-300 rounded-md shadow-lg z-50 overflow-y-scroll">
+                                            {loading ? (
+                                                <li className="px-4 py-2">Loading...</li>
+                                            ) : error ? (
+                                                <li className="px-4 py-2">{error}</li>
+                                            ) : (
+                                                notifications.map(notification => (
+                                                    <li key={notification._id} className={`px-4 py-2 ${notification.read ? 'bg-gray-700' : 'bg-gray-600'}`}>
+                                                        <Link to='#' onClick={() => markAsRead(notification._id)}>
+                                                            {notification.message}
+                                                        </Link>
+                                                    </li>
+                                                ))
+                                            )}
+                                        </ul>
+                                    )}
+                                </div>
+                            )}
+
+                            {/* User specific links */}
+                            {user ? (
+                                <>
+                                    <div className="relative">
+                                        <CountryFlag countryCode="US" svg style={{ width: '1.5em', height: '1.5em' }} />
+                                    </div>
+                                    <Link 
+                                        to={isOrganizer ? "/dashboard/Organizer/Profile" : "/dashboard/user/Profile"} 
+                                        className="flex items-center space-x-2 text-gray-300 hover:bg-gray-700 hover:text-white p-2 rounded"
+                                    >
+                                        <img 
+                                            src={avatar}
+                                            alt="Profile Avatar" 
+                                            className="w-8 h-8 rounded-full " 
+                                        />
+                                        <span className='text-white'>Profile</span>
+                                    </Link>
+
+                                    <button className="text-white font-bold" onClick={handleLogout}>Logout</button>
+                                </>
+                            ) : (
+                                <>
+                                    <Link to="/login" className="text-white hover:bg-gray-700 hover:text-white p-2 rounded">
+                                        Login
+                                    </Link>
+                                    <Link to="/register" className="text-white hover:bg-gray-700 hover:text-white p-2 rounded">
+                                        Register
+                                    </Link>
+                                </>
+                            )}
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            {/* Drawer */}
+            <div className="drawer-side z-50">
+                <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
+                <ul className="menu bg-gray-700 text-base-content h-3/4 rounded-md mt-10 drop-shadow-lg w-80 p-4">
+                    <h2 className="text-lg font-bold text-white">Navigation</h2>
+                    <li>
+                        <Link to="/" className="flex items-center space-x-2 text-gray-300 hover:bg-gray-700 hover:text-white p-2 rounded">
+                            <AiOutlineHome />
+                            <span className='text-white'>Home</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/about" className="flex items-center space-x-2 text-gray-300 hover:bg-gray-700 hover:text-white p-2 rounded">
+                            <MdOutlineRoundaboutLeft />
+                            <span className='text-white'>About</span>
+                        </Link>
+                    </li>
+                    {user && (
+                        <li>
+                            <Link to={isOrganizer ? "/dashboard/Organizer/Profile" : "/dashboard/user/Profile"} className="flex items-center space-x-2 text-gray-300 hover:bg-gray-700 hover:text-white p-2 rounded">
+                                <img src={avatar} alt="Profile" className="w-8 h-8 rounded-full" />
+                                <span className='text-white'>Profile</span>
+                            </Link>
+                        </li>
+                    )}
+                </ul>
+            </div>
         </div>
-      </div>
-
-      {/* For mobile view */}
-      {isMobileOpen && (
-        <div className="md:hidden flex flex-col bg-white p-4 shadow-lg">
-          {navlinks.map((link) => (
-            <NavLink
-              key={link.name}
-              to={link.route}
-              className="text-black hover:text-primary py-2"
-            >
-              {link.name}
-            </NavLink>
-          ))}
-          {!isLoggedIn && (
-            <NavLink to="/login" className="text-black hover:text-primary py-2">
-              Login
-            </NavLink>
-          )}
-          {isLoggedIn && (
-            <NavLink
-              to="/dashboard"
-              className="text-black hover:text-primary py-2"
-            >
-              Dashboard
-            </NavLink>
-          )}
-          {isLoggedIn && (
-            <button
-              onClick={handleLogout}
-              className="text-black hover:text-primary py-2"
-            >
-              Logout
-            </button>
-          )}
-        </div>
-      )}
-    </motion.nav>
-  );
+    );
 }
-
-export default Navbar;

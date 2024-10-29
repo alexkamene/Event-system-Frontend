@@ -40,3 +40,13 @@
 .read-the-docs {
   color: #888;
 }
+
+
+@media (forced-colors: active) {
+  /* Styles for forced colors mode */
+  body {
+    background-color: Window;
+    color: WindowText;
+  }
+  /* Add more styles for other elements as needed */
+}
