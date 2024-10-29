@@ -3,7 +3,6 @@ import Main from "../layoutes/Main";
 
 
 
-
 import Register from "../Pages/Register.jsx";
 import Login from "../Pages/Login.jsx";
 import EventRegistration from "../Pages/Dashboards/EventRegistration";
