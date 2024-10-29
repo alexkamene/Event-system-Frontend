@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layoutes/Main";
 
-import OrganizerDashboard from "../Pages/Dashboards/OrganizerDashboard.jsx";
+
 
 import AdminDashboard from "../Pages/Dashboards/AdminDashboard.jsx";
 import Register from "../Pages/Register.jsx";
@@ -17,7 +17,8 @@ import OrganizerProfile from "../Pages/Dashboards/Organizers/OrganizerProfile.js
 import Home from "../Pages/Home.jsx";
 import About from "../Pages/About.jsx";
 import UserDashboard from "../Pages/Dashboards/UserDashboard.jsx";
-
+import OrganizerDashboard from "../Pages/Dashboards/OrganizerDashboard.jsx";
+import AdminDashboard from "../Pages/Dashboards/AdminDashboard.jsx";
 
 
 
