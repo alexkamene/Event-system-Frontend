@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../layoutes/Main";
 
 import OrganizerDashboard from "../Pages/Dashboards/OrganizerDashboard.jsx";
-import UserDashboard from "../Pages/Dashboards/UserDashboard.jsx";
+
 import AdminDashboard from "../Pages/Dashboards/AdminDashboard.jsx";
 import Register from "../Pages/Register.jsx";
 import Login from "../Pages/Login.jsx";
@@ -16,6 +16,7 @@ import ProfilePicture from "../Pages/Users/ProfilePicture.jsx";
 import OrganizerProfile from "../Pages/Dashboards/Organizers/OrganizerProfile.jsx";
 import Home from "../Pages/Home.jsx";
 import About from "../Pages/About.jsx";
+import UserDashboard from "../Pages/Dashboards/UserDashboard.jsx";
 
 
 
@@ -33,17 +34,17 @@ export const route = createBrowserRouter([
     children: [
 {
   path: "/",
-    element: <Home />,
+    element: <Home/>,
 },
 {
   path: "/about",
-    element: <About />,
+    element: <About/>,
 },
 
 
       {
         path: 'dashboard/user',
-        element: <UserDashboard />,
+        element: <UserDashboard/>,
     },
     {
         path: 'dashboard/organizer',
@@ -67,15 +68,15 @@ export const route = createBrowserRouter([
 },
     {
         path: '/dashboard/admin',
-        element: <AdminDashboard />,
+        element: <AdminDashboard/>,
     },
     {
       path: "/events/register/:id",  // Ensure this path matches the Link in EventItem
-      element: <EventRegistration  />, // Render the EventRegistration component
+      element: <EventRegistration/>, // Render the EventRegistration component
     },
     {
       path: "/registered-events",  // Ensure this path matches the Link in EventItem
-      element: <RegisteredEvents />, // Render the EventRegistration component
+      element: <RegisteredEvents/>, // Render the EventRegistration component
     },{
     path: "/organizer-createEvents",  // Ensure this path matches the Link in EventItem
     element:(<ProtectedRoute requiredRole="organizer">
