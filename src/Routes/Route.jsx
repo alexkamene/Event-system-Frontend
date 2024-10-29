@@ -1,20 +1,20 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layoutes/Main";
-import UserDashboard from "../Pages/Dashboards/UserDashboard";
-import OrganizerDashboard from "../Pages/Dashboards/OrganizerDashboard";
-import AdminDashboard from "../Pages/Dashboards/AdminDashboard";
-import Register from "../Pages/Register";
-import Login from "../Pages/Login";
+import UserDashboard from "../Pages/Dashboards/UserDashboard.jsx";
+import OrganizerDashboard from "../Pages/Dashboards/OrganizerDashboard.jsx";
+import AdminDashboard from "../Pages/Dashboards/AdminDashboard.jsx";
+import Register from "../Pages/Register.jsx";
+import Login from "../Pages/Login.jsx";
 import EventRegistration from "../Pages/Dashboards/EventRegistration";
-import RegisteredEvents from "../Pages/Dashboards/RegisterdEvents";
-import OrganizerCreateEvents from "../Pages/Dashboards/OrganizerCreateEvents";
-import ProtectedRoute from "../Routes/ProtectedRoute";
+import RegisteredEvents from "../Pages/Dashboards/RegisterdEvents.jsx";
+import OrganizerCreateEvents from "../Pages/Dashboards/OrganizerCreateEvents.jsx";
+import ProtectedRoute from "../Routes/ProtectedRoute.jsx";
 import ViewUsers from "../Pages/Dashboards/Organizers/ViewUsers";
-import RegisteredUsers from "../Pages/Dashboards/Organizers/RegisterdUsers";
-import ProfilePicture from "../Pages/Users/ProfilePicture";
-import OrganizerProfile from "../Pages/Dashboards/Organizers/OrganizerProfile";
-import Home from "../Pages/Home";
-import About from "../Pages/About";
+import RegisteredUsers from "../Pages/Dashboards/Organizers/RegisterdUsers.jsx";
+import ProfilePicture from "../Pages/Users/ProfilePicture.jsx";
+import OrganizerProfile from "../Pages/Dashboards/Organizers/OrganizerProfile.jsx";
+import Home from "../Pages/Home.jsx";
+import About from "../Pages/About.jsx";
 
 
 
