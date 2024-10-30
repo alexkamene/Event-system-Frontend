@@ -1,21 +1,21 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layoutes/Main";
-import Home from "../Pages/Dashboards/DashboardsComponents/Home";
-import About from "../Pages/Dashboards/DashboardsComponents/About";
-import UserDashboard from "../Pages/Dashboards/DashboardsComponents/UserDashboard";
-import OrganizerDashboard from "../Pages/Dashboards/DashboardsComponents/OrganizerDashboard";
-import ProfilePage from "../Pages/Dashboards/Organizers/OrganizerProfile";
-import OrganizerProfile from "../Pages/Dashboards/Organizers/OrganizerProfile";
-import AdminDashboard from "../Pages/Dashboards/DashboardsComponents/AdminDashboard";
-import EventRegistration from "../Pages/Dashboards/DashboardsComponents/EventRegistration";
-import ProtectedRoute from "../Routes/ProtectedRoute";
+import Home from "../Pages/Dashboards/DashboardsComponents/Home.jsx";
+import About from "../Pages/Dashboards/DashboardsComponents/About.jsx";
+import UserDashboard from "../Pages/Dashboards/DashboardsComponents/UserDashboard.jsx";
+import OrganizerDashboard from "../Pages/Dashboards/DashboardsComponents/OrganizerDashboard.jsx";
+import ProfilePage from "../Pages/Dashboards/Organizers/OrganizerProfile.jsx";
+import OrganizerProfile from "../Pages/Dashboards/Organizers/OrganizerProfile.jsx";
+import AdminDashboard from "../Pages/Dashboards/DashboardsComponents/AdminDashboard.jsx";
+import EventRegistration from "../Pages/Dashboards/DashboardsComponents/EventRegistration.jsx";
+import ProtectedRoute from "../Routes/ProtectedRoute.jsx";
 
-import OrganizerCreateEvents from "../Pages/Dashboards/DashboardsComponents/OrganizerCreateEvents";
-import ViewUsers from "../Pages/Dashboards/Organizers/ViewUsers";
-import RegisteredUsers from "../Pages/Dashboards/Organizers/RegisterdUsers";
-import Register from "../Pages/Dashboards/DashboardsComponents/Register";
-import Login from "../Pages/Dashboards/DashboardsComponents/Login";
-import RegisteredEvents from "../Pages/Dashboards/DashboardsComponents/RegisteredEvents";
+import OrganizerCreateEvents from "../Pages/Dashboards/DashboardsComponents/OrganizerCreateEvents.jsx";
+import ViewUsers from "../Pages/Dashboards/Organizers/ViewUsers.jsx";
+import RegisteredUsers from "../Pages/Dashboards/Organizers/RegisterdUsers.jsx";
+import Register from "../Pages/Dashboards/DashboardsComponents/Register.jsx";
+import Login from "../Pages/Dashboards/DashboardsComponents/Login.jsx";
+import RegisteredEvents from "../Pages/Dashboards/DashboardsComponents/RegisteredEvents.jsx";
 
 
 
