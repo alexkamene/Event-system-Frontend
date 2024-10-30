@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import UploadImage from '../Images/UploadImage'; // Adjust the path as necessary
+import UploadImage from '../../Images/UploadImage'; // Adjust the path as necessary
 
-const CreateEvent = () => {
+const OrganizerCreateEvents = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
@@ -143,4 +143,4 @@ const CreateEvent = () => {
   );
 };
 
-export default CreateEvent;
+export default OrganizerCreateEvents;

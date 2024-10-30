@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import EventList from '../Dashboards/EventList';
-import PrivateRoutes from '../../Routes/PrivateRoutes';
+import EventList from '../../Dashboards/DashboardsComponents/EventList';
+import PrivateRoutes from '../../../Routes/PrivateRoutes';
 import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
 import axios from 'axios';
 

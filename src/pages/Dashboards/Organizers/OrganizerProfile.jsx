@@ -6,7 +6,7 @@ import { FaEdit } from 'react-icons/fa';
 import UploadImage from "../../Images/UploadImage";
 
 
-const ProfilePage = () => {
+const OrganizerProfile = () => {
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
@@ -216,4 +216,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default OrganizerProfile;

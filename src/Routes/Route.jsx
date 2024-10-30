@@ -1,24 +1,25 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layoutes/Main";
+import Home from "../Pages/Dashboards/DashboardsComponents/Home";
+import About from "../Pages/Dashboards/DashboardsComponents/About";
+import UserDashboard from "../Pages/Dashboards/DashboardsComponents/UserDashboard";
+import OrganizerDashboard from "../Pages/Dashboards/DashboardsComponents/OrganizerDashboard";
+import ProfilePage from "../Pages/Dashboards/Organizers/OrganizerProfile";
+import OrganizerProfile from "../Pages/Dashboards/Organizers/OrganizerProfile";
+import AdminDashboard from "../Pages/Dashboards/DashboardsComponents/AdminDashboard";
+import EventRegistration from "../Pages/Dashboards/DashboardsComponents/EventRegistration";
+import ProtectedRoute from "../Routes/ProtectedRoute";
 
-
-
-
-import Login from "../Pages/Login.jsx";
-import EventRegistration from "../Pages/Dashboards/EventRegistration";
-import RegisteredEvents from "../Pages/Dashboards/RegisterdEvents.jsx";
-import OrganizerCreateEvents from "../Pages/Dashboards/OrganizerCreateEvents.jsx";
-import ProtectedRoute from "../Routes/ProtectedRoute.jsx";
+import OrganizerCreateEvents from "../Pages/Dashboards/DashboardsComponents/OrganizerCreateEvents";
 import ViewUsers from "../Pages/Dashboards/Organizers/ViewUsers";
-import RegisteredUsers from "../Pages/Dashboards/Organizers/RegisterdUsers.jsx";
-import ProfilePicture from "../Pages/Users/ProfilePicture.jsx";
-import OrganizerProfile from "../Pages/Dashboards/Organizers/OrganizerProfile.jsx";
-import Home from "../Pages/Home.jsx";
-import About from "../Pages/About.jsx";
-import UserDashboard from "../Pages/Dashboards/UserDashboard.jsx";
-import AdminDashboard from "../Pages/Dashboards/AdminDashboard.jsx";
-import OrganizerDashboard from "../Pages/Dashboards/OrganizerDashboard.jsx";
-import Register from "../Pages/Register.jsx";
+import RegisteredUsers from "../Pages/Dashboards/Organizers/RegisterdUsers";
+import Register from "../Pages/Dashboards/DashboardsComponents/Register";
+import Login from "../Pages/Dashboards/DashboardsComponents/Login";
+import RegisteredEvents from "../Pages/Dashboards/DashboardsComponents/RegisteredEvents";
+
+
+
+
 
 
 
@@ -57,7 +58,7 @@ export const route = createBrowserRouter([
     {
       path: 'dashboard/user/Profile',
       element:(<ProtectedRoute requiredRole="user">
-        <ProfilePicture/>
+        <ProfilePage/>
         
             </ProtectedRoute>) 
   },
