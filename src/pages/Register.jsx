@@ -1,64 +1,45 @@
-import React, { useContext, useState } from "react"; 
+import React, { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import AuthContext from "../../../context/Authcontext";
-import logo from "../../Images/1.webp";
+import logo from "../pages/images/1.webp"; // Adjust the path as necessary
 
-const Login=()=> {
+export default function Register() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [backgroundInfo, setBackgroundInfo] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const { setUser } = useContext(AuthContext);
+  const history = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    if (!email || !password) {
-      toast.error("Both email and password are required");
+    if (!name || !email || !password || !backgroundInfo) {
+      toast.error("All fields are required");
       setLoading(false);
       return;
     }
 
     try {
-      const response = await axios.post("https://event-management-system-backend-dtrl.onrender.com/login", {
+      const response = await axios.post("https://event-management-system-backend-dtrl.onrender.com/register", {
+        name,
         email,
         password,
+        backgroundInfo,
       });
 
-      const { token, role, userId, username } = response.data;
-
-      if (!token || !role || !userId || !username) {
-        throw new Error("Invalid login response.");
-      }
-
-      localStorage.setItem("token", token); 
-      localStorage.setItem("role", role);   
-      localStorage.setItem("userId", userId); 
-      localStorage.setItem("username", username);
-
-      toast.success("Logged in successfully");
-
-      switch (role) {
-        case "admin":
-          window.location.href = '/dashboard/admin';
-          break;
-        case "organizer":
-          window.location.href = '/dashboard/organizer';
-          break;
-        default:
-          window.location.href = '/dashboard/user';
-      }
+      toast.success("Registered successfully");
+      setName("");
+      setEmail("");
+      setPassword("");
+      setBackgroundInfo("");
+      history.push("/login");
     } catch (error) {
-      if (error.response) {
-        toast.error(error.response.data || "Login failed");
-      } else {
-        toast.error("Login failed, please try again.");
-      }
+      toast.error(error.response?.data || "Registration failed");
     } finally {
       setLoading(false);
     }
@@ -71,7 +52,7 @@ const Login=()=> {
       transition={{ duration: 3 }}
       className="flex h-screen"
       style={{
-        backgroundImage: `url('https://www.elementalproduction.com/wp-content/uploads/2021/05/corporate-events.jpg')`,
+        backgroundImage: `url('https://on-productions.co.uk/wp-content/uploads/On_Event_Production_provide_full_creative_production_for_Blue_Square_Event3.jpg')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
@@ -88,15 +69,25 @@ const Login=()=> {
         </p>
       </div>
 
-      {/* Login Form Side */}
+      {/* Registration Form Side */}
       <div className="flex justify-center items-center w-full md:w-1/2 p-6">
         <div className="w-full max-w-sm bg-white rounded-lg shadow-lg overflow-hidden p-8">
-        <img src={logo} className="w-20 h-20 mx-auto  rounded-full mb-4" alt="Event Management" />
+          <img src={logo} className="w-20 h-20 mx-auto rounded-full mb-4" alt="Event Management" />
           <h2 className="text-2xl font-bold mb-1 text-center text-secondary">
             Event Management
           </h2>
-          <h3 className="text-xl font-semibold mb-4 text-center">Login</h3>
+          <h3 className="text-xl font-semibold mb-4 text-center">Register</h3>
           <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Full Name"
+                required
+                className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
+              />
+            </div>
             <div className="mb-4">
               <input
                 type="email"
@@ -107,7 +98,7 @@ const Login=()=> {
                 className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
               />
             </div>
-            <div className="mb-6">
+            <div className="mb-4">
               <input
                 type="password"
                 value={password}
@@ -117,6 +108,15 @@ const Login=()=> {
                 className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
               />
             </div>
+            <div className="mb-4">
+              <textarea
+                value={backgroundInfo}
+                onChange={(e) => setBackgroundInfo(e.target.value)}
+                placeholder="Background Information"
+                required
+                className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
+              ></textarea>
+            </div>
             <button
               type="submit"
               className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-600 transition duration-200"
@@ -124,7 +124,7 @@ const Login=()=> {
               {loading ? (
                 <span className="loading loading-spinner loading-sm"></span>
               ) : (
-                "Login"
+                "Register"
               )}
             </button>
           </form>
@@ -134,9 +134,9 @@ const Login=()=> {
           </div>
           <div className="text-black text-center">
             <p>
-              Don't have an account?{" "}
-              <Link to="/register" className="text-red-500">
-                Register
+              Already have an account?{" "}
+              <Link to="/login" className="text-red-500">
+                Login
               </Link>
             </p>
           </div>
@@ -145,4 +145,3 @@ const Login=()=> {
     </motion.div>
   );
 }
-export default Login;

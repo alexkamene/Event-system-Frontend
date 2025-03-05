@@ -1,13 +1,3 @@
-import React from 'react'
-
-const AdminDashboard=()=> {
-  return (
-    <div>
-      <h1>AdminDashboard</h1>
-    </div>
-  )
-}
-export default AdminDashboard
 // import React, { useState } from 'react';
 // import { FaHome, FaList, FaPlus, FaRegFolder, FaClipboardList, FaUsers, FaCheckCircle, FaBars } from 'react-icons/fa';
 

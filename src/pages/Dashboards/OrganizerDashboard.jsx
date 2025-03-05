@@ -22,7 +22,7 @@ const OrganizerDashboard = () => {
     const fetchEvents = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('https://event-management-system-backend-dtrl.onrender.com/events-organizer', {
+        const response = await axios.get('https://event-management-system-backend-33ue.onrender.com/events-organizer', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -45,7 +45,7 @@ const OrganizerDashboard = () => {
 
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`https://event-management-system-backend-dtrl.onrender.com/events/${eventId}`, {
+      await axios.delete(`https://event-management-system-backend-33ue.onrender.com/events/${eventId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

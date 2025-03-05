@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaEdit } from 'react-icons/fa'; 
-import UploadImage from "../Images/UploadImage";
+import UploadImage from "../images/UploadImage";
 
 
 const ProfilePage = () => {

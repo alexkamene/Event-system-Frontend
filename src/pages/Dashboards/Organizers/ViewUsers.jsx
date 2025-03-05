@@ -5,7 +5,7 @@ import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import { toast ,ToastContainer} from 'react-toastify';
 
 
-const ViewUsers = () => {
+const ViewEvents = () => {
   const user = localStorage.getItem('username');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [events, setEvents] = useState([]);
@@ -162,4 +162,4 @@ const ViewUsers = () => {
   );
 };
 
-export default ViewUsers;
+export default ViewEvents;
