@@ -19,7 +19,7 @@ const RegisteredEvents = () => {
 
 
 
-        const response = await axios.get('https://event-management-system-backend-dtrl.onrender.com/events-registered', {
+        const response = await axios.get('https://event-management-system-backend-33ue.onrender.com/events-registered', {
           headers: {
             Authorization: `Bearer ${token}`, // Attach the token in the request
           },

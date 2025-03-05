@@ -15,7 +15,7 @@ const EventRegistration = () => {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const response = await axios.get(`https://event-management-system-backend-dtrl.onrender.com/events/${id}`); // Replace with your API URL
+        const response = await axios.get(`https://event-management-system-backend-33ue.onrender.com/events/${id}`); // Replace with your API URL
         setEvent(response.data);
         console.log("Fetched event:", response.data);
       } catch (error) {
@@ -35,7 +35,7 @@ const EventRegistration = () => {
         return;
       }
 
-      const response = await axios.post(`https://event-management-system-backend-dtrl.onrender.com/events/register/${id}`, {}, {
+      const response = await axios.post(`https://event-management-system-backend-33ue.onrender.com/events/register/${id}`, {}, {
         headers: {
           Authorization: `Bearer ${token}`, // Attach the token in the request
         },

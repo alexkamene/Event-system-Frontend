@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import UploadImage from '../images/UploadImage';
+import UploadImage from '../../pages/UploadImage';
 
 const CreateEvent = () => {
   const [name, setName] = useState('');
@@ -23,7 +23,7 @@ const CreateEvent = () => {
 
     try {
       const token = localStorage.getItem('token'); // Get the token from local storage
-      const response = await axios.post('https://event-management-system-backend-dtrl.onrender.com/addEvent', {
+      const response = await axios.post('https://event-management-system-backend-33ue.onrender.com/addEvent', {
         name,
         description,
         date,

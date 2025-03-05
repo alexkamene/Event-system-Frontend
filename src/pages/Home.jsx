@@ -10,7 +10,7 @@ const Home = () => {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const response = await axios.get('https://event-management-system-backend-dtrl.onrender.com/events'); // Replace with your API URL
+                const response = await axios.get('https://event-management-system-backend-33ue.onrender.com/events'); // Replace with your API URL
                 setEvents(response.data);
                 // console.log("Fetched events:", response.data);
             } catch (error) {
@@ -32,7 +32,7 @@ const Home = () => {
             <section
                 className="hero bg-cover bg-center h-screen relative"
                 style={{
-                    backgroundImage: "url('https://www.elementalproduction.com/wp-content/uploads/2021/05/corporate-events.jpg')",
+                    backgroundImage: "url('https://events.enderuncolleges.com/wp-content/uploads/2019/03/image1-3.jpg')",
                 }}
             >
                 <div className="absolute inset-0 bg-black opacity-60"></div>

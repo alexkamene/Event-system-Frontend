@@ -25,7 +25,7 @@ export default function Register() {
     }
 
     try {
-      const response = await axios.post("https://event-management-system-backend-dtrl.onrender.com/register", {
+      const response = await axios.post("https://event-management-system-backend-33ue.onrender.com/register", {
         name,
         email,
         password,

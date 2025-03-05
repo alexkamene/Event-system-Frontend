@@ -13,7 +13,7 @@ export default function UserDashboard() {
     const checkNewRegisteredEvents = async () => {
       const token = localStorage.getItem('token');
       try {
-        const response = await axios.get('https://event-management-system-backend-dtrl.onrender.com/events-registered', {
+        const response = await axios.get('https://event-management-system-backend-33ue.onrender.com/events-registered', {
           headers: {
             Authorization: `Bearer ${token}`,
           },

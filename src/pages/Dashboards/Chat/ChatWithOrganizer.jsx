@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 
-const socket = io('https://event-management-system-backend-dtrl.onrender.com', {
+const socket = io('https://event-management-system-backend-33ue.onrender.com', {
     transports: ['websocket', 'polling']
   });// Connect to the server
 

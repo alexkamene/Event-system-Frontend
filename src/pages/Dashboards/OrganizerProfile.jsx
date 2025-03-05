@@ -3,10 +3,10 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaEdit } from 'react-icons/fa'; 
-import UploadImage from "../../images/UploadImage";
+import UploadImage from "../UploadImage";
 
 
-const ProfilePage = () => {
+const OrganizerProfile = () => {
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
@@ -27,7 +27,7 @@ const ProfilePage = () => {
       const token = localStorage.getItem("token");
 
       try {
-        const profileResponse = await axios.get("https://event-management-system-backend-dtrl.onrender.com/profile", {
+        const profileResponse = await axios.get("https://event-management-system-backend-33ue.onrender.com/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUserInfo({
@@ -40,7 +40,7 @@ const ProfilePage = () => {
         });
 
         // Fetch user events
-        const eventsResponse = await axios.get("https://event-management-system-backend-dtrl.onrender.com/events-organizer", {
+        const eventsResponse = await axios.get("https://event-management-system-backend-33ue.onrender.com/events-organizer", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setEvents(eventsResponse.data); // Set events data
@@ -65,7 +65,7 @@ const ProfilePage = () => {
 
     try {
       await axios.put(
-        "https://event-management-system-backend-dtrl.onrender.com/updateprofile",
+        "https://event-management-system-backend-33ue.onrender.com/updateprofile",
         {
           name: userInfo.name,
           email: userInfo.email,
@@ -216,4 +216,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default OrganizerProfile;

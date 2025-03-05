@@ -1,6 +1,6 @@
 // src/Images/UploadImage.js
 import React, { useState } from 'react';
-import  storage  from '../../Firebase/Firebase'; // Adjust the path to your firebase.js file
+import  storage  from '../Firebase/Firebase'; // Adjust the path to your firebase.js file
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const UploadImage = ({ setImageUrl }) => {

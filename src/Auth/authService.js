@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 const navigaate=useNavigate
-const API_URL = 'https://event-management-system-backend-dtrl.onrender.com/';
+const API_URL = 'https://event-management-system-backend-33ue.onrender.com/';
 
 const register = async (username, password) => {
     const response = await axios.post(API_URL + 'Register', { username, password });

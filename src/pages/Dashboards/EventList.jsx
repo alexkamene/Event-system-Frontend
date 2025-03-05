@@ -10,7 +10,7 @@ const EventList = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('https://event-management-system-backend-dtrl.onrender.com/events'); // Replace with your API URL
+        const response = await axios.get('https://event-management-system-backend-33ue.onrender.com/events'); // Replace with your API URL
         setEvents(response.data);
         // console.log("Fetched events:", response.data);
       } catch (error) {

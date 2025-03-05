@@ -11,7 +11,7 @@ const RegisteredUsers = () => {
     const fetchRegisteredUsers = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`https://event-management-system-backend-dtrl.onrender.com/organizer-event/${id}`, {
+        const response = await axios.get(`https://event-management-system-backend-33ue.onrender.com/organizer-event/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -5,7 +5,7 @@ import About from "../pages/About.jsx";
 import UserDashboard from "../pages/Dashboards/UserDashboard.jsx";
 import OrganizerDashboard from "../pages/Dashboards/OrganizerDashboard.jsx";
 import ProfilePage from "../pages/Users/ProfilePicture.jsx";
-import OrganizerProfile from "../pages/Dashboards/Organizers/OrganizerProfile.jsx";
+
 import AdminDashboard from "../pages/Dashboards/AdminDashboard.jsx";
 import EventRegistration from "../pages/Dashboards/EventRegistration.jsx";
 import ProtectedRoute from "../Routes/ProtectedRoute.jsx";
@@ -16,6 +16,8 @@ import RegisteredUsers from "../pages/Dashboards/Organizers/RegisterdUsers.jsx";
 import Register from "../pages/Register.jsx";
 import Login from "../pages/Login.jsx";
 import RegisteredEvents from "../pages/Dashboards/RegisterdEvents.jsx";
+import OrganizerProfile from "../pages/Dashboards/OrganizerProfile.jsx";
+
 
 
 

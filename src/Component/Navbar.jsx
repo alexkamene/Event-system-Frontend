@@ -20,7 +20,7 @@ export default function Navbar() {
 
     const fetchAvatar = async () => {
         try {
-            const response = await axios.get('https://event-management-system-backend-dtrl.onrender.com/profile', {
+            const response = await axios.get('https://event-management-system-backend-33ue.onrender.com/profile', {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
@@ -34,7 +34,7 @@ export default function Navbar() {
     const fetchNotifications = async () => {
         setLoading(true);
         try {
-            const response = await axios.get(`https://event-management-system-backend-dtrl.onrender.com/notifications`, {
+            const response = await axios.get(`https://event-management-system-backend-33ue.onrender.com/notifications`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
@@ -72,7 +72,7 @@ export default function Navbar() {
 
     const markAsRead = async (notificationId) => {
         try {
-            await axios.put(`https://event-management-system-backend-dtrl.onrender.com/notifications/${notificationId}/read`, {}, {
+            await axios.put(`https://event-management-system-backend-33ue.onrender.com/notifications/${notificationId}/read`, {}, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
