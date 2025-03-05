@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import logo from "../pages/images/1.webp"; // Adjust the path as necessary
+ // Adjust the path as necessary
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -72,7 +72,7 @@ export default function Register() {
       {/* Registration Form Side */}
       <div className="flex justify-center items-center w-full md:w-1/2 p-6">
         <div className="w-full max-w-sm bg-white rounded-lg shadow-lg overflow-hidden p-8">
-          <img src={logo} className="w-20 h-20 mx-auto rounded-full mb-4" alt="Event Management" />
+          <img src="1.webp" className="w-20 h-20 mx-auto rounded-full mb-4" alt="Event Management" />
           <h2 className="text-2xl font-bold mb-1 text-center text-secondary">
             Event Management
           </h2>
