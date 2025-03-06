@@ -17,13 +17,12 @@ const OrganizerDashboard = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [previousCount, setPreviousCount] = useState(0);
-  
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('https://event-management-system-backend-dtrl.onrender.com/events-organizer', {
+        const response = await axios.get('https://event-management-system-backend-33ue.onrender.com/events-organizer', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -46,7 +45,7 @@ const OrganizerDashboard = () => {
 
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`https://event-management-system-backend-dtrl.onrender.com/events/${eventId}`, {
+      await axios.delete(`https://event-management-system-backend-33ue.onrender.com/events/${eventId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -68,31 +67,23 @@ const OrganizerDashboard = () => {
     { label: 'Create Event', icon: <AiOutlinePlus />, path: '/organizer-createEvents' },
     { label: 'View Events', icon: <AiOutlineUser />, path: '/organizer-ViewUsers' },
     { label: 'View Reports', icon: <AiOutlineFile />, path: '' },
-    { label: 'Coming Soon', icon: <AiOutlineFile />, path: '', className: 'bg-red-500 hover:bg-red-700' },
+    ,
   ];
 
   return (
-    <div className="flex h-screen bg-gray-100 flex-grow p-6 sm:pl-64 ">
-{/* Sidebar */}
-<div className={`fixed bg-[#252631] text-white w-full sm:w-64 transition-transform 
-  ${sidebarOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'} 
-  bottom-0 md:top-0 md:left-0 h-full flex md:block justify-around py-2 md:py-10 z-50`}
->
-  {/* Sidebar Header */}
-  <div className="text-center md:py-10">
-    <h1 className="text-xl font-bold hidden md:block">Organizer Dashboard</h1>
-    <p className="hidden md:block">Welcome, {user}</p>
+    <div className="flex h-screen bg-gray-100">
+      {/* Left Sidebar (Visible on sm and larger) */}
+<div className={`fixed top-0 left-0 bg-[#252631] text-white w-64 h-full transition-transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} sm:translate-x-0`}>
+  <div className="text-center py-10 mt-20">
+    <p>Welcome, {user}</p>
   </div>
-
-  {/* Navigation Menu */}
-  <nav className="w-full md:w-auto">
-    <ul className="flex md:block justify-around md:space-y-4 px-4">
+  <nav>
+    <ul className="space-y-4 px-4">
       {menuItems.map((item, index) => (
-        <li key={index} className="text-center md:text-left">
-          <Link to={item.path} className={`flex flex-col md:flex-row items-center space-x-0 md:space-x-3 py-3 px-4 rounded-md 
-            hover:bg-blue-600 transition ${item.className || ''}`}>
+        <li key={index}>
+          <Link to={item.path} className="flex items-center space-x-3 py-3 px-4 rounded-md hover:bg-blue-600 transition">
             {item.icon}
-            <span className="text-xs md:text-base">{item.label}</span>
+            <span>{item.label}</span>
           </Link>
         </li>
       ))}
@@ -100,10 +91,15 @@ const OrganizerDashboard = () => {
   </nav>
 </div>
 
-
-
-
-
+{/* Bottom Navbar (Visible on small screens only) */}
+<div className="fixed bottom-0 left-0 w-full bg-[#252631] text-white flex justify-around py-3 sm:hidden">
+  {menuItems.map((item, index) => (
+    <Link key={index} to={item.path} className="flex flex-col items-center">
+      {item.icon}
+      <span className="text-xs">{item.label}</span>
+    </Link>
+  ))}
+</div>
 
       {/* Hamburger Menu for Small Screens */}
       <div className="sm:hidden fixed top-4 left-4 z-20">
