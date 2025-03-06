@@ -5,6 +5,7 @@ import CountryFlag from 'react-country-flag';
 import { MdOutlineRoundaboutLeft } from 'react-icons/md';
 import AuthContext from '../context/Authcontext.jsx'; // Adjust the path as necessary
 import axios from 'axios';
+import { FaLock, FaUser } from 'react-icons/fa';
 
 export default function Navbar() {
     const { user, isAdmin, isOrganizer, logout } = useContext(AuthContext);
@@ -214,12 +215,30 @@ export default function Navbar() {
                             <span className='text-white'>About</span>
                         </Link>
                     </li>
+                    {
+                        !user&&(
+                            <li>
+                                <Link to="/login" className="flex items-center space-x-2 text-gray-300 hover:bg-gray-700 hover:text-white p-2 rounded">
+                                    <FaLock />
+                                    <span className='text-white'>Login</span>
+                                </Link>
+                            </li>
+                          
+
+
+
+                        )
+                    }
+                    
                     {user && (
                         <li>
                             <Link to={isOrganizer ? "/dashboard/Organizer/Profile" : "/dashboard/user/Profile"} className="flex items-center space-x-2 text-gray-300 hover:bg-gray-700 hover:text-white p-2 rounded">
                                 <img src={avatar} alt="Profile" className="w-8 h-8 rounded-full" />
                                 <span className='text-white'>Profile</span>
                             </Link>
+                            {/* log out button */}
+                            <button className="text-white font-bold" onClick={handleLogout}>Logout</button>
+                            
                         </li>
                     )}
                 </ul>
